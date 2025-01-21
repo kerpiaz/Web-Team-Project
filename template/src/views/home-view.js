@@ -12,3 +12,13 @@ export const toHomeView = () => `
   </div>
 </div>
 `;
+
+export const toTrendingView = (gifs) => `
+<div id="trending">
+  <h1>Trending Gifs</h1>
+  <div class="content">
+    ${gifs.map(gif => `<img src="${gif.images.fixed_height.url}" alt="${gif.title}">`).join('')}
+  </div>
+</div>
+`;
+

@@ -1,9 +1,16 @@
 import { getCategories, getMoviesGeneralInfo, getMoviesFullInfo, getMovieById, getCategory, searchMovies } from '../data/movies.js';
 
-export const loadCategories = () => {
-  const categories = getCategories();
-  
-  return categories;
+const myApiKey = '72dZueU3dzghkydrZ7nuqnbzOihjkdBr';
+
+export const loadTrending = async () => {
+  try {
+    const response = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${myApiKey}&limit=25&rating=g`);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching trending gifs:', error);
+    return [];
+  }
 };
 
 export const loadCategory = (id = null) => {

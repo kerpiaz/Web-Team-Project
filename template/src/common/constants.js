@@ -1,5 +1,9 @@
 export const HOME = 'home';
 
+export const UPLOAD = 'upload';
+
+export const TRENDING = 'trending';
+
 export const CATEGORIES = 'categories';
 
 export const FAVORITES = 'favorites';

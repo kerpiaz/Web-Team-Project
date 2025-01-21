@@ -1,9 +1,9 @@
-import { ABOUT, CATEGORIES, CONTAINER_SELECTOR, FAVORITES, HOME } from '../common/constants.js';
-import { loadCategories, loadCategory, loadMovies, loadSingleMovie } from '../requests/request-service.js';
+import { ABOUT, CATEGORIES, CONTAINER_SELECTOR, FAVORITES, HOME, TRENDING } from '../common/constants.js';
+import { loadCategory, loadMovies, loadSingleMovie, loadTrending } from '../requests/request-service.js';
 import { toAboutView } from '../views/about-view.js';
 import { toCategoriesView } from '../views/category-view.js';
 import { toFavoritesView } from '../views/favorites-view.js';
-import { toHomeView } from '../views/home-view.js';
+import { toHomeView, toTrendingView } from '../views/home-view.js';
 import { toMoviesFromCategoryView, toSingleMovieView } from '../views/movie-views.js';
 import { q, setActiveNav } from './helpers.js';
 import { getFavorites } from '../data/favorites.js';
@@ -29,6 +29,11 @@ export const loadPage = (page = '') => {
       setActiveNav(ABOUT);
       return renderAbout();
 
+    case TRENDING:
+        setActiveNav(TRENDING);
+        return renderTrending(); // Add this case
+  
+
     /* if the app supports error login, use default to log mapping errors */
     default: return null;
   }
@@ -49,6 +54,10 @@ export const renderCategory = (categoryId = null) => {
 };
 
 // private functions
+const renderTrending = async () => {
+  const gifs = await loadTrending();
+  q(CONTAINER_SELECTOR).innerHTML = toTrendingView(gifs);
+};
 
 const renderHome = () => {
   q(CONTAINER_SELECTOR).innerHTML = toHomeView();
